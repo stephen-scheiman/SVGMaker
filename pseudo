@@ -1,0 +1,15 @@
+Run inquirer to collect:
+    shape name (circle, square, triangle)
+    dimensions (
+        circle:  <circle cx="25" cy="75" r="20"/>
+        square: <rect x="10" y="10" width="30" height="30"/> 
+        triangle: <polygon points="50, 160 55, 180 70, 180 60, 190 65, 205 50, 195 35, 205 40, 190 30, 180 45, 180"/>
+    )
+    stroke color
+    stroke width
+    fill
+    fill color
+
+    3 letter monogram
+
+
