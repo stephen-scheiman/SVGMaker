@@ -90,8 +90,9 @@ const questions = inquirer
         answers["initials"].toUpperCase(),
         answers["txtColor"],
         answers["shape"],
-        answers["shapeColor"]
+        //answers["shapeColor"]
       );
+      circle.setColor(answers["shapeColor"]);
       const tmpLogo = circle.render();
       writeToSVG(tmpLogo);
     } else if (answers["shape"] === "Square") {
@@ -99,8 +100,9 @@ const questions = inquirer
         answers["initials"].toUpperCase(),
         answers["txtColor"],
         answers["shape"],
-        answers["shapeColor"]
+       // answers["shapeColor"]
       );
+      square.setColor(answers["shapeColor"]);
       const tmpLogo = square.render();
       writeToSVG(tmpLogo);
     } else {
@@ -108,8 +110,9 @@ const questions = inquirer
         answers["initials"].toUpperCase(),
         answers["txtColor"],
         answers["shape"],
-        answers["shapeColor"]
+        // answers["shapeColor"]
       );
+      triangle.setColor(answers["shapeColor"]);
       const tmpLogo = triangle.render();
       writeToSVG(tmpLogo);
     }
