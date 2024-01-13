@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const { Shape, Circle } = require("./lib/shapes");
+const { Square, Circle, Triangle } = require("./lib/shapes");
 
 const questions = inquirer
   .prompt([
@@ -35,6 +35,28 @@ const questions = inquirer
         answers["shapeColor"]
       );
       const tmpLogo = circle.render();
+      fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
+        err ? console.log(err) : console.log("Success!")
+      );
+    } else if (answers["shape"] === "Square") {
+      const square = new Square(
+        answers["initials"],
+        answers["txtColor"],
+        answers["shape"],
+        answers["shapeColor"]
+      );
+      const tmpLogo = square.render();
+      fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
+        err ? console.log(err) : console.log("Success!")
+      );
+    } else {
+      const triangle = new Triangle(
+        answers["initials"],
+        answers["txtColor"],
+        answers["shape"],
+        answers["shapeColor"]
+      );
+      const tmpLogo = triangle.render();
       fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
         err ? console.log(err) : console.log("Success!")
       );
