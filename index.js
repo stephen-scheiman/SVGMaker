@@ -35,7 +35,7 @@ const questions = inquirer
         answers["shapeColor"]
       );
       const tmpLogo = circle.render();
-      fs.writeFile(`${answers["initials"]}.svg`, tmpLogo, (err) =>
+      fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
         err ? console.log(err) : console.log("Success!")
       );
     }
