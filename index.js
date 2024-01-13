@@ -3,11 +3,17 @@ const fs = require("fs");
 const { Square, Circle, Triangle } = require("./lib/shapes");
 
 const answerValidatorInitials = async (answer) => {
-  if (answer.length < 3 || answer.length > 3) {
-    return "Please only enter three(3) characters";
+  if (answer.length > 3) {
+    return "Please enter up to three(3) characters";
     questions();
   }
   return true;
+};
+
+const writeToSVG = (tmpLogo) => {
+  fs.writeFile("./examples/logo.svg", tmpLogo, (err) =>
+    err ? console.log(err) : console.log("Generated logo.svg!")
+  );
 };
 
 const stdColors = {
@@ -25,31 +31,31 @@ const stdColors = {
   yellow: `#ffff00`,
   navy: `#000080`,
   blue: `#0000ff`,
-  teal: `008080`,
-  aqua: `00ffff`,
+  teal: `#008080`,
+  aqua: `#00ffff`,
 };
 
 const answerValidatorTextColor = (answer) => {
-    const tmp = answer.toLowerCase();
-    for (const index in stdColors){
-       if (tmp == index || tmp == stdColors[index]){
-        return true;
-       }
+  const tmp = answer.toLowerCase();
+  for (const index in stdColors) {
+    if (tmp == index || tmp == stdColors[index]) {
+      return true;
     }
-       return "You must choose a standard color name";
-       questions();
-}
+  }
+  return "You must choose a standard color name";
+  questions();
+};
 
 const answerValidatorShapeColor = (answer) => {
-    const tmp = answer.toLowerCase();
-    for (const index in stdColors){
-       if (tmp == index || tmp == stdColors[index]){
-        return true;
-       }
+  const tmp = answer.toLowerCase();
+  for (const index in stdColors) {
+    if (tmp == index || tmp == stdColors[index]) {
+      return true;
     }
-       return "You must choose a standard color name";
-       questions(); 
-}
+  }
+  return "You must choose a standard color name";
+  questions();
+};
 
 const questions = inquirer
   .prompt([
@@ -63,7 +69,7 @@ const questions = inquirer
       type: "input",
       name: "txtColor",
       message: "Please enter the text color for your SVG Logo",
-      validate: answerValidatorTextColor
+      validate: answerValidatorTextColor,
     },
     {
       type: "list",
@@ -75,7 +81,7 @@ const questions = inquirer
       type: "input",
       name: "shapeColor",
       message: "Please enter the color of the shape for your SVG Logo",
-      validate: answerValidatorShapeColor
+      validate: answerValidatorShapeColor,
     },
   ])
   .then((answers) => {
@@ -87,9 +93,7 @@ const questions = inquirer
         answers["shapeColor"]
       );
       const tmpLogo = circle.render();
-      fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
-        err ? console.log(err) : console.log("Success!")
-      );
+      writeToSVG(tmpLogo);
     } else if (answers["shape"] === "Square") {
       const square = new Square(
         answers["initials"].toUpperCase(),
@@ -98,9 +102,7 @@ const questions = inquirer
         answers["shapeColor"]
       );
       const tmpLogo = square.render();
-      fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
-        err ? console.log(err) : console.log("Success!")
-      );
+      writeToSVG(tmpLogo);
     } else {
       const triangle = new Triangle(
         answers["initials"].toUpperCase(),
@@ -109,8 +111,6 @@ const questions = inquirer
         answers["shapeColor"]
       );
       const tmpLogo = triangle.render();
-      fs.writeFile("./examples/test.svg", tmpLogo, (err) =>
-        err ? console.log(err) : console.log("Success!")
-      );
+      writeToSVG(tmpLogo);
     }
   });
