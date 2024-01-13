@@ -87,32 +87,29 @@ const questions = inquirer
   .then((answers) => {
     // if we're a circle, do circle stuff
     if (answers["shape"] === "Circle") {
-      const circle = new Circle(
-        answers["shape"],
-      );
+      //create a new instance of Circle
+      const circle = new Circle();
       //call the setText method for the Circle class
-      circle.setText(answers["initials"].toUpperCase())
-    //call the setColor method for the Circle class
-      circle.setColor(answers["shapeColor"])
+      circle.setText(answers["initials"].toUpperCase());
+      //call the setColor method for the Circle class
+      circle.setColor(answers["shapeColor"]);
       //call the setTxtColor method for the Circle class
       circle.setTxtColor(answers["txtColor"]);
+      // render our circle
       const tmpLogo = circle.render();
+      //write it to file
       writeToSVG(tmpLogo);
       // if we're a square, do square things
     } else if (answers["shape"] === "Square") {
-      const square = new Square(
-        answers["shape"],
-      );
-      square.setText(answers["initials"].toUpperCase())
-      square.setColor(answers["shapeColor"])
+      const square = new Square();
+      square.setText(answers["initials"].toUpperCase());
+      square.setColor(answers["shapeColor"]);
       square.setTxtColor(answers["txtColor"]);
       const tmpLogo = square.render();
       writeToSVG(tmpLogo);
     } else {
-        // same for triangle
-      const triangle = new Triangle(
-        answers["shape"],
-      );
+      // same for triangle
+      const triangle = new Triangle();
       triangle.setText(answers["initials"].toUpperCase());
       triangle.setColor(answers["shapeColor"]);
       triangle.setTxtColor(answers["txtColor"]);
