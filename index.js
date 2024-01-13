@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const { Square, Circle, Triangle } = require("./lib/shapes");
-
+// test for no more than three chars
 const answerValidatorInitials = async (answer) => {
   if (answer.length > 3) {
     return "Please enter up to three(3) characters";
@@ -9,13 +9,13 @@ const answerValidatorInitials = async (answer) => {
   }
   return true;
 };
-
+// function to write output to a file
 const writeToSVG = (tmpLogo) => {
   fs.writeFile("./examples/logo.svg", tmpLogo, (err) =>
     err ? console.log(err) : console.log("Generated logo.svg!")
   );
 };
-
+// standard colors and their hex that we will accept as input
 const stdColors = {
   black: `#000000`,
   silver: `#c0c0c0`,
@@ -34,7 +34,7 @@ const stdColors = {
   teal: `#008080`,
   aqua: `#00ffff`,
 };
-
+// test for std color/hex for text color
 const answerValidatorTextColor = (answer) => {
   const tmp = answer.toLowerCase();
   for (const index in stdColors) {
@@ -45,7 +45,7 @@ const answerValidatorTextColor = (answer) => {
   return "You must choose a standard color name";
   questions();
 };
-
+// test for std color/hex for shape color
 const answerValidatorShapeColor = (answer) => {
   const tmp = answer.toLowerCase();
   for (const index in stdColors) {
@@ -85,34 +85,37 @@ const questions = inquirer
     },
   ])
   .then((answers) => {
+    // if we're a circle, do circle stuff
     if (answers["shape"] === "Circle") {
       const circle = new Circle(
-        answers["initials"].toUpperCase(),
-        answers["txtColor"],
         answers["shape"],
-        //answers["shapeColor"]
       );
-      circle.setColor(answers["shapeColor"]);
+      //call the setText method for the Circle class
+      circle.setText(answers["initials"].toUpperCase())
+    //call the setColor method for the Circle class
+      circle.setColor(answers["shapeColor"])
+      //call the setTxtColor method for the Circle class
+      circle.setTxtColor(answers["txtColor"]);
       const tmpLogo = circle.render();
       writeToSVG(tmpLogo);
+      // if we're a square, do square things
     } else if (answers["shape"] === "Square") {
       const square = new Square(
-        answers["initials"].toUpperCase(),
-        answers["txtColor"],
         answers["shape"],
-       // answers["shapeColor"]
       );
-      square.setColor(answers["shapeColor"]);
+      square.setText(answers["initials"].toUpperCase())
+      square.setColor(answers["shapeColor"])
+      square.setTxtColor(answers["txtColor"]);
       const tmpLogo = square.render();
       writeToSVG(tmpLogo);
     } else {
+        // same for triangle
       const triangle = new Triangle(
-        answers["initials"].toUpperCase(),
-        answers["txtColor"],
         answers["shape"],
-        // answers["shapeColor"]
       );
+      triangle.setText(answers["initials"].toUpperCase());
       triangle.setColor(answers["shapeColor"]);
+      triangle.setTxtColor(answers["txtColor"]);
       const tmpLogo = triangle.render();
       writeToSVG(tmpLogo);
     }
